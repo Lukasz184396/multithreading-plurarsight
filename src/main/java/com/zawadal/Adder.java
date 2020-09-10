@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 //single thread
-public class Adder {
+public class Adder implements Runnable{
     private String inFile;
     private String outFile;
 
@@ -31,5 +31,14 @@ public class Adder {
 
 
 
+    }
+
+    @Override
+    public void run() {
+        try {
+            doAdd();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
