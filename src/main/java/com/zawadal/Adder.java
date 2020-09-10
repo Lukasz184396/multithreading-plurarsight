@@ -5,9 +5,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.Callable;
 
-//single thread
-public class Adder implements Runnable{
+public class Adder implements Callable<Integer> {
     private String inFile;
     private String outFile;
 
@@ -16,7 +16,11 @@ public class Adder implements Runnable{
         this.outFile = outFile;
     }
 
-    public void doAdd() throws IOException {
+    public Adder(String inFile) {
+        this.inFile = inFile;
+    }
+
+    public int doAdd() throws IOException {
         int total = 0;
         String line = null;
 
@@ -25,20 +29,14 @@ public class Adder implements Runnable{
                 total += Integer.parseInt(line);
         }
 
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(outFile))) {
-            writer.write("Total: " + total);
-        }
-
-
-
+//        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(outFile))) {
+//            writer.write("Total: " + total);
+//        }
+        return total;
     }
 
     @Override
-    public void run() {
-        try {
-            doAdd();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Integer call() throws IOException {
+        return doAdd();
     }
 }
