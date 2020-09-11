@@ -7,11 +7,11 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public int getBalance() {
+    public synchronized int getBalance() {
         return balance;
     }
 
-    public void deposit(int amount) {
+    public synchronized void deposit(int amount) {
         balance += amount;
     }
 }
