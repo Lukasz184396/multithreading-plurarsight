@@ -26,6 +26,6 @@ public class WorkerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        assertEquals(600, account.getBalance()); //not always when threads share same resource without lock
+        assertEquals(600, account.getBalance());
     }
 }
